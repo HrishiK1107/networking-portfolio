@@ -1,0 +1,71 @@
+! =========================
+! L3-SW - Core Layer Switch
+! Inter-VLAN Routing (SVI)
+! Default Gateway for all VLANs
+! =========================
+
+version 12.2(37)SE1
+
+hostname L3-SW
+
+! -------------------------
+! ENABLE LAYER 3 ROUTING
+! -------------------------
+ip routing
+
+spanning-tree mode pvst
+
+! -------------------------
+! VLAN CONFIGURATION
+! -------------------------
+vlan 10
+ name HR
+vlan 20
+ name Finance
+vlan 30
+ name Eng
+
+! -------------------------
+! TRUNK TO ACCESS SWITCH (SW1)
+! -------------------------
+interface GigabitEthernet0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ no shutdown
+
+! -------------------------
+! UNUSED INTERFACES
+! -------------------------
+interface GigabitEthernet0/2
+ shutdown
+
+! -------------------------
+! SVI - DEFAULT GATEWAYS
+! -------------------------
+interface Vlan10
+ ip address 192.168.10.1 255.255.255.0
+ no shutdown
+
+interface Vlan20
+ ip address 192.168.20.1 255.255.255.0
+ no shutdown
+
+interface Vlan30
+ ip address 192.168.30.1 255.255.255.0
+ no shutdown
+
+! -------------------------
+! UNUSED VLAN INTERFACE
+! -------------------------
+interface Vlan1
+ no ip address
+ shutdown
+
+! -------------------------
+! LINE CONFIG
+! -------------------------
+line con 0
+line vty 0 4
+ login
+
+end

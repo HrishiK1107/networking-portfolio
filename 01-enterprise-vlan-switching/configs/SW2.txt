@@ -1,0 +1,74 @@
+! =========================
+! SW2 - Access Layer Switch
+! VLAN 20 (Finance)
+! Trunk to SW1 and SW3
+! =========================
+
+version 15.0
+
+hostname SW2
+
+spanning-tree mode pvst
+spanning-tree extend system-id
+
+! -------------------------
+! VLAN CONFIGURATION
+! -------------------------
+vlan 10
+ name HR
+vlan 20
+ name Finance
+vlan 30
+ name Eng
+
+! -------------------------
+! ACCESS PORT (Finance PC)
+! -------------------------
+interface FastEthernet0/1
+ switchport mode access
+ switchport access vlan 20
+
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security violation shutdown
+ switchport port-security mac-address sticky
+ switchport port-security mac-address sticky 0005.5E16.8212
+
+ no shutdown
+
+! -------------------------
+! TRUNK TO SW1
+! -------------------------
+interface GigabitEthernet0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 999
+
+ no shutdown
+
+! -------------------------
+! TRUNK TO SW3
+! -------------------------
+interface GigabitEthernet0/2
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+
+ no shutdown
+
+! -------------------------
+! UNUSED VLAN INTERFACE
+! -------------------------
+interface Vlan1
+ no ip address
+ shutdown
+
+! -------------------------
+! LINE CONFIG
+! -------------------------
+line con 0
+line vty 0 4
+ login
+line vty 5 15
+ login
+
+end

@@ -119,9 +119,16 @@ To validate Layer 2 security, an unauthorized device (Attacker PC) was connected
 - Security Violation Count : 1
 
 
-### Evidence
+### Attack Topology
+
+The attacker device was connected to a secured access port on SW1.
+
+![Attack Topology](screenshots/attack-topology.png)
+
+### Evidence (Violation Triggered)
 
 ![Port Security Violation](screenshots/port-security-violation.png)
+
 
 ### Key Takeaway
 

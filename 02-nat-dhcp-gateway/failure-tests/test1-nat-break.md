@@ -71,6 +71,6 @@ ip nat inside
 
 ## Screenshots
 
-* `screenshots/test1/before.png`
-* `screenshots/test1/after.png`
-* `screenshots/test1/nat-empty.png`
+![Before](../screenshots/test1/before.png)
+![After](../screenshots/test1/after.png)
+![NAT Empty](../screenshots/test1/nat-empty.png)

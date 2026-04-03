@@ -76,6 +76,6 @@ no shutdown
 
 ## Screenshots
 
-* `screenshots/test4/before.png`
-* `screenshots/test4/interface-down.png`
-* `screenshots/test4/after.png`
+![Before](../screenshots/test4/before.png)
+![After](../screenshots/test4/after.png)
+![Interface Down](../screenshots/test4/interface-down.png)

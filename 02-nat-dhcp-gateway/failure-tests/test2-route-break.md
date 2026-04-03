@@ -74,6 +74,6 @@ ip route 0.0.0.0 0.0.0.0 203.0.113.2
 
 ## Screenshots
 
-* `screenshots/test2/before.png`
-* `screenshots/test2/after.png`
-* `screenshots/test2/route-missing.png`
+![Before](../screenshots/test2/before.png)
+![After](../screenshots/test2/after.png)
+![Route Missing](../screenshots/test2/route-missing.png)

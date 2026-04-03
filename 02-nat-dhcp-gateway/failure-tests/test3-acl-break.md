@@ -92,6 +92,6 @@ ip route 192.168.1.0 255.255.255.0 203.0.113.1
 
 ## Screenshots
 
-* `screenshots/test3/before.png`
-* `screenshots/test3/after.png`
-* `screenshots/test3/nat-empty.png`
+![Before](../screenshots/test3/before.png)
+![After](../screenshots/test3/after.png)
+![NAT Empty](../screenshots/test3/nat-empty.png)

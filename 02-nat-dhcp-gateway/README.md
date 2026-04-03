@@ -36,8 +36,7 @@ Beyond basic setup, this project includes **failure scenario testing and root ca
 
 Refer to:
 
-* `topology/topology.png`
-* `topology/topology.pkt`
+![Topology](../02-nat-dhcp-gateway/topology/topology.png)
 
 ---
 

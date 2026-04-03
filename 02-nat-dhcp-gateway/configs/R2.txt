@@ -1,0 +1,34 @@
+! ================================
+! R2 - ISP Simulation Router
+! Role: Upstream Router + Return Path
+! ================================
+
+hostname R2
+
+! ----------------
+! Internet Simulation Network
+! ----------------
+interface GigabitEthernet0/0
+ description Internet Network (Server: 8.8.8.8)
+ ip address 8.8.8.1 255.255.255.0
+ no shutdown
+
+! ----------------
+! WAN Link to R1
+! ----------------
+interface Serial0/0/0
+ description WAN Link to R1
+ ip address 203.0.113.2 255.255.255.252
+ no shutdown
+
+! ----------------
+! Static Route to LAN
+! ----------------
+ip route 192.168.1.0 255.255.255.0 203.0.113.1
+
+! ----------------
+! Notes
+! ----------------
+! - Simulates ISP router
+! - Provides return path to LAN
+! - Hosts "internet" network (8.8.8.0/24)

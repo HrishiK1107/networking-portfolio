@@ -1,0 +1,54 @@
+! ================================
+! R1 - Edge Gateway Router
+! Role: LAN Gateway + DHCP Server + NAT/PAT + Default Route
+! ================================
+
+hostname R1
+
+! ----------------
+! DHCP Configuration
+! ----------------
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+
+ip dhcp pool LAN_POOL
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+ dns-server 8.8.8.8
+
+! ----------------
+! LAN Interface (Inside)
+! ----------------
+interface GigabitEthernet0/0
+ description LAN Interface
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+ no shutdown
+
+! ----------------
+! WAN Interface (Outside)
+! ----------------
+interface Serial0/0/0
+ description WAN Link to ISP (R2)
+ ip address 203.0.113.1 255.255.255.252
+ ip nat outside
+ clock rate 64000
+ no shutdown
+
+! ----------------
+! NAT Configuration (PAT Overload)
+! ----------------
+access-list 1 permit 192.168.1.0 0.0.0.255
+
+ip nat inside source list 1 interface Serial0/0/0 overload
+
+! ----------------
+! Default Route (Internet Access)
+! ----------------
+ip route 0.0.0.0 0.0.0.0 203.0.113.2
+
+! ----------------
+! Notes
+! ----------------
+! - Acts as default gateway for LAN
+! - Translates private IPs to public IP (203.0.113.1)
+! - Provides DHCP to all LAN clients

@@ -1,4 +1,4 @@
-# Multi-Area OSPF Implementation & Failure Testing (GNS3)
+# Multi-Area OSPF with Route Summarization (GNS3)
 
 ## Overview
 

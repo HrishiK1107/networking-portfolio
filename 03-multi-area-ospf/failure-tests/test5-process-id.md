@@ -96,28 +96,6 @@ R3 → FULL
 
 ---
 
-## 5. Verification (Post-Convergence)
-
-### Commands (R2)
-
-
-show ip ospf neighbor
-
-
-### Expected
-
-- Stable adjacency:
-
-R1 → FULL
-R3 → FULL
-
-
-### Screenshot
-
-![After Recovery - Stable Adjacency](../screenshots/test5-process-id/after-recover.png)
-
----
-
 ## Conclusion
 
 - OSPF process ID is locally significant  

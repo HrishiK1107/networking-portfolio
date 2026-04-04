@@ -1,0 +1,32 @@
+hostname R1
+
+! ----------------
+! Loopback (User Network)
+! ----------------
+interface Loopback0
+ description User Network (Area 1)
+ ip address 10.1.1.1 255.255.255.0
+
+! ----------------
+! Link to R2 (Area 1)
+! ----------------
+interface GigabitEthernet0/0
+ description Link to R2
+ ip address 10.0.12.1 255.255.255.252
+ ip ospf network point-to-point
+ no shutdown
+
+! ----------------
+! OSPF Configuration
+! ----------------
+router ospf 1
+ router-id 1.1.1.1
+ network 10.0.12.0 0.0.0.3 area 1
+ network 10.1.1.0 0.0.0.255 area 1
+
+! ----------------
+! Notes
+! ----------------
+! - Pure Area 1 router
+! - No backbone participation
+! - Connects end network into OSPF

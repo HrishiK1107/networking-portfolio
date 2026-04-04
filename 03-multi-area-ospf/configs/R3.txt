@@ -1,0 +1,46 @@
+hostname R3
+
+! ----------------
+! Loopback (Area 2 LAN)
+! ----------------
+interface Loopback0
+ description Internal Network (Area 2)
+ ip address 10.2.3.1 255.255.255.0
+
+! ----------------
+! Link to R2 (Backbone)
+! ----------------
+interface GigabitEthernet0/0
+ description Link to R2
+ ip address 10.0.23.2 255.255.255.252
+ ip ospf network point-to-point
+ no shutdown
+
+! ----------------
+! Link to R4 (Area 2)
+! ----------------
+interface GigabitEthernet0/1
+ description Link to R4
+ ip address 10.0.34.1 255.255.255.252
+ ip ospf network point-to-point
+ no shutdown
+
+! ----------------
+! OSPF Configuration
+! ----------------
+router ospf 1
+ router-id 3.3.3.3
+
+ ! Area 2 summarization
+ area 2 range 10.2.0.0 255.255.0.0
+
+ network 10.0.23.0 0.0.0.3 area 0
+ network 10.0.34.0 0.0.0.3 area 2
+ network 10.2.3.0 0.0.0.255 area 2
+
+! ----------------
+! Notes
+! ----------------
+! - Backbone router (Area 0)
+! - ABR between Area 0 and Area 2
+! - Performs summarization for 10.2.0.0/16

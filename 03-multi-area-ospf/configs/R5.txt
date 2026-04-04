@@ -1,0 +1,32 @@
+hostname R5
+
+! ----------------
+! Loopback (Target Network)
+! ----------------
+interface Loopback0
+ description Destination Network
+ ip address 10.2.5.1 255.255.255.0
+
+! ----------------
+! Link to R4
+! ----------------
+interface GigabitEthernet0/0
+ description Link to R4
+ ip address 10.0.45.2 255.255.255.252
+ ip ospf network point-to-point
+ no shutdown
+
+! ----------------
+! OSPF Configuration
+! ----------------
+router ospf 1
+ router-id 5.5.5.5
+
+ network 10.0.45.0 0.0.0.3 area 2
+ network 10.2.5.0 0.0.0.255 area 2
+
+! ----------------
+! Notes
+! ----------------
+! - Edge router in Area 2
+! - Final destination for end-to-end testing

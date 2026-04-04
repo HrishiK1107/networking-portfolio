@@ -1,0 +1,42 @@
+hostname R4
+
+! ----------------
+! Loopback (Area 2 LAN)
+! ----------------
+interface Loopback0
+ description Internal Network (Area 2)
+ ip address 10.2.4.1 255.255.255.0
+
+! ----------------
+! Link to R3
+! ----------------
+interface GigabitEthernet0/0
+ description Link to R3
+ ip address 10.0.34.2 255.255.255.252
+ ip ospf network point-to-point
+ no shutdown
+
+! ----------------
+! Link to R5
+! ----------------
+interface GigabitEthernet0/1
+ description Link to R5
+ ip address 10.0.45.1 255.255.255.252
+ ip ospf network point-to-point
+ no shutdown
+
+! ----------------
+! OSPF Configuration
+! ----------------
+router ospf 1
+ router-id 4.4.4.4
+
+ network 10.0.34.0 0.0.0.3 area 2
+ network 10.0.45.0 0.0.0.3 area 2
+ network 10.2.4.0 0.0.0.255 area 2
+
+! ----------------
+! Notes
+! ----------------
+! - Internal Area 2 router
+! - Pure transit node between R3 and R5

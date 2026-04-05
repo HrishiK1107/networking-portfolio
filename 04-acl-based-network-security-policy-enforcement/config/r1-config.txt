@@ -1,0 +1,91 @@
+! =========================================================
+! R1 - ACL-Based Network Security Policy Enforcement
+! =========================================================
+
+hostname R1
+
+! =========================================================
+! CORE SETTINGS
+! =========================================================
+
+ip domain-name lab.local
+no ip http server
+no ip http secure-server
+
+! =========================================================
+! USER AUTHENTICATION
+! =========================================================
+
+username admin secret admin123
+
+! =========================================================
+! INTERFACE CONFIGURATION (NETWORK SEGMENTS)
+! =========================================================
+
+! --- ADMIN NETWORK ---
+interface GigabitEthernet0/0
+ description ADMIN-NET (10.0.99.0/24)
+ ip address 10.0.99.1 255.255.255.0
+ ip access-group BLOCK-TELNET in
+ no shutdown
+
+! --- HR NETWORK ---
+interface GigabitEthernet0/1
+ description HR-NET (10.0.20.0/24)
+ ip address 10.0.20.1 255.255.255.0
+ ip access-group HR-BLOCK in
+ no shutdown
+
+! --- FINANCE NETWORK ---
+interface GigabitEthernet0/2
+ description FINANCE-NET (10.0.30.0/24)
+ ip address 10.0.30.1 255.255.255.0
+ ip access-group BLOCK-TELNET in
+ no shutdown
+
+! --- SERVER NETWORK ---
+interface GigabitEthernet0/3
+ description SERVER-NET (10.0.10.0/24)
+ ip address 10.0.10.1 255.255.255.0
+ ip access-group BLOCK-TELNET in
+ no shutdown
+
+! =========================================================
+! ACCESS CONTROL LISTS (DATA PLANE SECURITY)
+! =========================================================
+
+! --- GLOBAL TELNET BLOCK ---
+ip access-list extended BLOCK-TELNET
+ remark Block insecure Telnet protocol globally
+ deny tcp any any eq 23 log
+ permit ip any any
+
+! --- HR TO FINANCE SEGMENTATION ---
+ip access-list extended HR-BLOCK
+ remark Prevent HR from accessing Finance network
+ deny ip 10.0.20.0 0.0.0.255 10.0.30.0 0.0.0.255 log
+ permit ip any any
+
+! =========================================================
+! CONTROL PLANE SECURITY (SSH ACCESS)
+! =========================================================
+
+! --- ALLOW ONLY ADMIN HOST ---
+ip access-list standard SSH-ADMIN
+ remark Allow SSH only from Admin PC
+ permit 10.0.99.10
+
+! =========================================================
+! VTY LINE CONFIGURATION (REMOTE ACCESS)
+! =========================================================
+
+line vty 0 4
+ access-class SSH-ADMIN in
+ login local
+ transport input ssh
+
+! =========================================================
+! END OF CONFIG
+! =========================================================
+
+end

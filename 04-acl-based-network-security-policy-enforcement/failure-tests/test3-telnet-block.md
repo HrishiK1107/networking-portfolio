@@ -17,17 +17,17 @@ Validate that Telnet (TCP port 23) is globally blocked using extended ACL.
 
 ### Commands (R1)
 
-
+```
 show ip access-lists BLOCK-TELNET
 
-
+```
 ### Expected
 
 * Telnet explicitly denied:
 
-
+```
 deny tcp any any eq telnet
-
+```
 
 ### Screenshot
 
@@ -39,17 +39,17 @@ deny tcp any any eq telnet
 
 ### Commands (R1)
 
-
+```
 telnet 10.0.10.10
-
+```
 
 ### Observed
 
 * Connection fails:
 
-
+```
 Connection timed out
-
+```
 
 ### Screenshot
 
@@ -61,18 +61,18 @@ Connection timed out
 
 ### Commands (R1)
 
-
+```
 show ip access-lists
-
+```
 
 ### Observed
 
 * ACL actively processing traffic:
 
-
+```
 permit ip any any (hit count increasing)
 
-
+```
 ### Screenshot
 
 ![ACL Hit Count](../screenshots/test3-telnet-block/telnet-hitcount.png)

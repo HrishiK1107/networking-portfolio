@@ -18,9 +18,9 @@ Ensure only the Admin host can access the router via SSH using VTY access-class.
 
 ### Commands (R1)
 
-
+```
 show running-config | section vty
-
+```
 
 ### Expected
 
@@ -37,17 +37,17 @@ show running-config | section vty
 
 ### Commands (R1)
 
-
+```
 show access-lists SSH-ADMIN
-
+```
 
 ### Expected
 
 * Only Admin IP permitted:
 
-
+```
 permit 10.0.99.10
-
+```
 
 ### Screenshot
 
@@ -59,10 +59,10 @@ permit 10.0.99.10
 
 ### Action (R1)
 
-
+```
 ip access-list standard SSH-ADMIN
 permit 10.0.20.10
-
+```
 
 ### Screenshot
 
@@ -74,9 +74,9 @@ permit 10.0.20.10
 
 ### Commands (R1)
 
-
+```
 show access-lists SSH-ADMIN
-
+```
 
 ### Observed
 
@@ -92,9 +92,9 @@ show access-lists SSH-ADMIN
 
 ### Action (R1)
 
-
+```
 no permit 10.0.20.10
-
+```
 
 ### Screenshot
 
@@ -106,9 +106,9 @@ no permit 10.0.20.10
 
 ### Commands (R1)
 
-
+```
 show access-lists SSH-ADMIN
-
+```
 
 ### Expected
 

@@ -132,9 +132,9 @@ deny ip any any
 
 Each test follows a structured validation approach:
 
-
+```
 Baseline → Failure Injection → Impact → Recovery → Verification
-
+```
 
 ---
 
@@ -174,13 +174,13 @@ Baseline → Failure Injection → Impact → Recovery → Verification
 
 ## Verification Commands
 
-
+```
 show ip access-lists
 show running-config | section access-list
 show running-config | section vty
 show ip interface brief
 ping <destination>
-
+```
 
 ---
 

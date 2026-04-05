@@ -38,7 +38,7 @@ It simulates how real enterprise networks enforce **security policies at the rou
 
 ## Topology
 
-### Logical Topology
+### Physical Topology
 
 ![Physical Topology](../04-acl-based-network-security-policy-enforcement/topology/topology.png)
 
